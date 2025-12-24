@@ -12,8 +12,8 @@
 <div class="max-w-7xl mx-auto px-4 py-6">
 <div class="flex items-center justify-between flex-wrap gap-4">
 <div>
-<h1 class="text-3xl font-bold text-gray-900">Home Inventory Tracker</h1>
-<p class="text-gray-600 mt-1">Document your belongings for insurance</p>
+<h1 class="text-3xl font-bold text-gray-900">🏠 Home Inventory Tracker</h1>
+<p class="text-gray-600 mt-1">Document your belongings for insurance purposes</p>
 </div>
 <button id="addBtn" class="bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 font-medium">➕ Add Item</button>
 </div>
@@ -27,8 +27,9 @@
 <p id="totalItems" class="text-3xl font-bold">0</p>
 </div>
 <div class="bg-white p-6 rounded-lg shadow-sm border">
-<p class="text-sm text-gray-600">Total Value</p>
-<p id="totalValue" class="text-3xl font-bold">$0</p>
+<p class="text-sm text-gray-600">Estimated Total Value</p>
+<p id="totalValue" class="text-3xl font-bold">$0.00</p>
+<p class="text-xs text-gray-500 mt-1">*Not a guarantee of coverage</p>
 </div>
 <div class="bg-white p-6 rounded-lg shadow-sm border">
 <p class="text-sm text-gray-600">Rooms</p>
@@ -37,74 +38,254 @@
 </div>
 </div>
 
-<div class="max-w-7xl mx-auto px-4 pb-8">
-<div id="grid" class="grid grid-cols-1 md:grid-cols-3 gap-6 hidden"></div>
-<div id="empty" class="bg-white rounded-lg shadow-sm border p-12 text-center">
-<div class="text-6xl mb-4">📦</div>
-<h3 class="text-2xl font-semibold mb-3">No items yet</h3>
-<p class="text-gray-600">Click Add Item to start</p>
+<div class="max-w-7xl mx-auto px-4 pb-6">
+<div class="bg-amber-50 border-2 border-amber-200 rounded-lg p-4 mb-4">
+<div class="flex items-start space-x-3">
+<div class="text-2xl">⚠️</div>
+<div>
+<h3 class="text-sm font-semibold text-amber-900 mb-1">Important: About Item Values</h3>
+<p class="text-xs text-amber-800">Values entered are for documentation only and do not guarantee insurance coverage. Actual coverage depends on your policy terms. Consult your insurance agent for coverage details.</p>
+</div>
 </div>
 </div>
 
-<div id="modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-<div class="bg-white rounded-lg max-w-2xl w-full">
-<div class="bg-indigo-600 text-white px-6 py-4 rounded-t-lg flex justify-between">
-<h2 class="text-xl font-bold">Add Item</h2>
+<div id="reminderSection" class="bg-blue-50 border-2 border-blue-200 rounded-lg p-6 mb-4">
+<div class="flex items-start justify-between mb-4">
+<div class="flex items-center space-x-2">
+<span class="text-2xl">📋</span>
+<h3 class="text-lg font-bold text-blue-900">Don't Forget These Important Items!</h3>
+</div>
+<button id="hideReminders" class="text-blue-600 text-sm">Hide</button>
+</div>
+<p class="text-xs text-blue-800 mb-4">Check off categories as you document them</p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+<div class="bg-white rounded p-3 border-2 border-blue-200">
+<label class="flex items-start space-x-2 cursor-pointer">
+<input type="checkbox" class="mt-1">
+<div class="text-sm"><strong>💎 Jewelry & Precious Metals</strong><br><span class="text-xs text-gray-600">Consider professional appraisals</span></div>
+</label>
+</div>
+<div class="bg-white rounded p-3 border-2 border-blue-200">
+<label class="flex items-start space-x-2 cursor-pointer">
+<input type="checkbox" class="mt-1">
+<div class="text-sm"><strong>🔧 Tools & Equipment</strong><br><span class="text-xs text-gray-600">Include model and serial numbers</span></div>
+</label>
+</div>
+<div class="bg-white rounded p-3 border-2 border-blue-200">
+<label class="flex items-start space-x-2 cursor-pointer">
+<input type="checkbox" class="mt-1">
+<div class="text-sm"><strong>🎨 Collectibles</strong><br><span class="text-xs text-gray-600">Document authenticity certificates</span></div>
+</label>
+</div>
+<div class="bg-white rounded p-3 border-2 border-blue-200">
+<label class="flex items-start space-x-2 cursor-pointer">
+<input type="checkbox" class="mt-1">
+<div class="text-sm"><strong>🚜 Farming Equipment</strong><br><span class="text-xs text-gray-600">Record VIN and maintenance records</span></div>
+</label>
+</div>
+<div class="bg-white rounded p-3 border-2 border-blue-200">
+<label class="flex items-start space-x-2 cursor-pointer">
+<input type="checkbox" class="mt-1">
+<div class="text-sm"><strong>👔 Clothing & Closets</strong><br><span class="text-xs text-gray-600">Photo full closet contents</span></div>
+</label>
+</div>
+<div class="bg-white rounded p-3 border-2 border-blue-200">
+<label class="flex items-start space-x-2 cursor-pointer">
+<input type="checkbox" class="mt-1">
+<div class="text-sm"><strong>🧸 Children's Items</strong><br><span class="text-xs text-gray-600">Toys, games, outdoor equipment</span></div>
+</label>
+</div>
+<div class="bg-white rounded p-3 border-2 border-green-200">
+<label class="flex items-start space-x-2 cursor-pointer">
+<input type="checkbox" class="mt-1">
+<div class="text-sm"><strong>🆕 New Purchases</strong><br><span class="text-xs text-green-700">Contact agent for coverage updates</span></div>
+</label>
+</div>
+</div>
+<div class="mt-4 p-3 bg-white rounded border-2 border-blue-300">
+<div class="flex justify-between items-center">
+<div class="flex items-center space-x-2">
+<span class="text-xl">🔔</span>
+<div class="text-sm"><strong>Monthly Update Reminders</strong><br><span class="text-xs text-gray-600">Get reminded to update your inventory</span></div>
+</div>
+<button id="setupReminders" class="bg-blue-600 text-white px-4 py-2 rounded text-sm">Set Up</button>
+</div>
+</div>
+</div>
+
+<div id="showRemindersBtn" class="hidden mb-4">
+<button id="showReminders" class="bg-blue-100 text-blue-700 px-4 py-2 rounded text-sm">📋 Show Category Reminders</button>
+</div>
+
+<div class="bg-white p-4 rounded-lg shadow-sm border mb-4">
+<div class="flex flex-col md:flex-row gap-3">
+<input type="text" id="search" placeholder="🔍 Search items..." class="flex-1 px-4 py-2 border rounded-lg">
+<select id="filterRoom" class="px-4 py-2 border rounded-lg">
+<option value="all">All Rooms</option>
+<option>Living Room</option>
+<option>Bedroom</option>
+<option>Kitchen</option>
+<option>Bathroom</option>
+<option>Garage</option>
+<option>Detached Garage/Barn</option>
+<option>Office</option>
+<option>Basement</option>
+<option>Attic</option>
+<option>Other</option>
+</select>
+<button id="exportBtn" class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700">📥 Export CSV</button>
+</div>
+</div>
+</div>
+
+<div class="max-w-7xl mx-auto px-4 pb-8">
+<div id="grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 hidden"></div>
+<div id="empty" class="bg-white rounded-lg shadow-sm border p-12 text-center">
+<div class="text-6xl mb-4">📦</div>
+<h3 class="text-2xl font-semibold mb-3">No items yet</h3>
+<p class="text-gray-600 mb-6">Start building your home inventory by adding your first item</p>
+<button onclick="document.getElementById('addBtn').click()" class="bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700">➕ Add Your First Item</button>
+</div>
+</div>
+
+<div id="modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 overflow-y-auto">
+<div class="bg-white rounded-lg max-w-2xl w-full my-8">
+<div class="sticky top-0 bg-indigo-600 text-white px-6 py-4 rounded-t-lg flex justify-between">
+<h2 class="text-xl font-bold">Add New Item</h2>
 <button id="closeBtn" class="text-2xl">×</button>
 </div>
+<div class="sticky top-[73px] bg-white border-b px-6 py-3 flex gap-3 z-10">
+<button id="save" class="flex-1 bg-indigo-600 text-white py-2 rounded-lg">Add Item</button>
+<button id="cancel" class="px-6 py-2 border rounded-lg">Cancel</button>
+</div>
 <div class="p-6 space-y-4">
-<input type="text" id="name" placeholder="Item name" class="w-full px-4 py-2 border rounded-lg">
+<div>
+<label class="block text-sm font-medium mb-1">Item Name *</label>
+<input type="text" id="name" placeholder="e.g., Samsung 55-inch TV" class="w-full px-4 py-2 border rounded-lg">
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block text-sm font-medium mb-1">Room/Location *</label>
 <select id="room" class="w-full px-4 py-2 border rounded-lg">
 <option>Living Room</option>
 <option>Bedroom</option>
 <option>Kitchen</option>
+<option>Bathroom</option>
 <option>Garage</option>
+<option>Detached Garage/Barn</option>
+<option>Office</option>
+<option>Basement</option>
+<option>Attic</option>
+<option>Other</option>
 </select>
-<input type="number" id="price" placeholder="Price" class="w-full px-4 py-2 border rounded-lg">
-<div class="flex gap-3">
-<button id="save" class="flex-1 bg-indigo-600 text-white py-3 rounded-lg">Add</button>
-<button id="cancel" class="px-6 py-3 border rounded-lg">Cancel</button>
 </div>
+<div>
+<label class="block text-sm font-medium mb-1">Room Identifier</label>
+<input type="text" id="roomId" placeholder="e.g., Master, Kid's" class="w-full px-4 py-2 border rounded-lg">
+</div>
+</div>
+<div>
+<label class="block text-sm font-medium mb-1">Category</label>
+<input type="text" id="category" placeholder="e.g., Electronics, Furniture" class="w-full px-4 py-2 border rounded-lg">
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block text-sm font-medium mb-1">Purchase Date</label>
+<input type="date" id="date" class="w-full px-4 py-2 border rounded-lg">
+</div>
+<div>
+<label class="block text-sm font-medium mb-1">Purchase Price</label>
+<input type="number" id="price" placeholder="0.00" step="0.01" class="w-full px-4 py-2 border rounded-lg">
+<p class="text-xs text-gray-500 mt-1">For documentation only</p>
+</div>
+</div>
+<div>
+<label class="block text-sm font-medium mb-1">Description</label>
+<textarea id="desc" rows="3" placeholder="Model, serial number, condition..." class="w-full px-4 py-2 border rounded-lg"></textarea>
+</div>
+<div>
+<label class="block text-sm font-medium mb-1">Photo</label>
+<input type="file" id="photo" accept="image/*" class="w-full px-4 py-2 border rounded-lg">
+<div id="preview" class="mt-2 hidden">
+<img id="previewImg" class="w-full h-48 object-cover rounded-lg">
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="reminderModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+<div class="bg-white rounded-lg max-w-md w-full">
+<div class="bg-blue-600 text-white px-6 py-4 rounded-t-lg flex justify-between">
+<h2 class="text-xl font-bold">🔔 Inventory Update Reminders</h2>
+<button id="closeReminderModal" class="text-2xl">×</button>
+</div>
+<div class="p-6 space-y-4">
+<div class="bg-blue-50 p-3 rounded border border-blue-200">
+<p class="text-sm text-blue-900 mb-2"><strong>Why set up reminders?</strong></p>
+<ul class="text-xs text-blue-800 space-y-1 list-disc list-inside">
+<li>Remember to add new purchases</li>
+<li>Update after home improvements</li>
+<li>Keep coverage accurate</li>
+</ul>
+</div>
+<div>
+<label class="flex items-center space-x-2">
+<input type="checkbox" id="enableReminders" class="h-4 w-4">
+<span class="text-sm font-medium">Enable monthly reminders</span>
+</label>
+</div>
+<div id="reminderFields" class="hidden space-y-3">
+<input type="email" id="reminderEmail" placeholder="your.email@example.com" class="w-full px-4 py-2 border rounded-lg">
+<select id="reminderFreq" class="w-full px-4 py-2 border rounded-lg">
+<option>Monthly</option>
+<option>Quarterly</option>
+<option>Twice a Year</option>
+</select>
+<div class="bg-amber-50 p-3 rounded border border-amber-200">
+<p class="text-xs text-amber-800"><strong>Important:</strong> Major purchases may require policy updates. Contact your agent.</p>
+</div>
+</div>
+<div class="flex gap-3">
+<button id="saveReminder" class="flex-1 bg-blue-600 text-white py-2 rounded-lg">Save Settings</button>
+<button id="cancelReminder" class="px-6 py-2 border rounded-lg">Cancel</button>
+</div>
+</div>
+</div>
+</div>
+
+<div class="max-w-7xl mx-auto px-4 pb-8">
+<div class="bg-white rounded-lg shadow-sm border p-6 text-center">
+<p class="text-gray-700 text-base font-semibold mb-3">Powered by [Your Insurance Agency Name]</p>
+<p class="text-gray-600 text-sm mb-3">Protecting what matters most • Contact your agent today</p>
+<div class="border-t pt-3 mt-3">
+<p class="text-xs text-gray-500"><strong>Disclaimer:</strong> This tool is for documentation only. Values do not guarantee coverage. Coverage subject to policy terms. Consult your agent for details.</p>
 </div>
 </div>
 </div>
 
 <script>
-let items=[];
+let items=[];let photo=null;
 document.getElementById('addBtn').onclick=()=>document.getElementById('modal').classList.remove('hidden');
-document.getElementById('closeBtn').onclick=()=>document.getElementById('modal').classList.add('hidden');
-document.getElementById('cancel').onclick=()=>document.getElementById('modal').classList.add('hidden');
-document.getElementById('save').onclick=()=>{
-let n=document.getElementById('name').value;
-let r=document.getElementById('room').value;
-let p=parseFloat(document.getElementById('price').value)||0;
-if(!n)return alert('Enter name');
-items.push({id:Date.now(),name:n,room:r,price:p});
-update();
-document.getElementById('modal').classList.add('hidden');
-document.getElementById('name').value='';
-document.getElementById('price').value='';
-};
-function update(){
-document.getElementById('totalItems').textContent=items.length;
-document.getElementById('totalValue').textContent='$'+items.reduce((s,i)=>s+i.price,0).toFixed(2);
-document.getElementById('rooms').textContent=new Set(items.map(i=>i.room)).size;
-let g=document.getElementById('grid');
-g.innerHTML=items.map(i=>`<div class="bg-white rounded-lg shadow border p-4"><div class="flex justify-between mb-2"><h3 class="font-semibold">${i.name}</h3><button onclick="del(${i.id})">🗑️</button></div><p class="text-sm">🏠 ${i.room}</p><p class="text-sm text-green-700">💰 $${i.price.toFixed(2)}</p></div>`).join('');
-if(items.length>0){
-document.getElementById('empty').classList.add('hidden');
-g.classList.remove('hidden');
-}else{
-document.getElementById('empty').classList.remove('hidden');
-g.classList.add('hidden');
-}
-}
-function del(id){
-if(confirm('Delete?')){
-items=items.filter(i=>i.id!==id);
-update();
-}
-}
+document.getElementById('closeBtn').onclick=()=>{document.getElementById('modal').classList.add('hidden');clearForm();};
+document.getElementById('cancel').onclick=()=>{document.getElementById('modal').classList.add('hidden');clearForm();};
+document.getElementById('photo').onchange=e=>{const f=e.target.files[0];if(f){const r=new FileReader();r.onload=()=>{photo=r.result;document.getElementById('previewImg').src=r.result;document.getElementById('preview').classList.remove('hidden');};r.readAsDataURL(f);}};
+document.getElementById('save').onclick=()=>{const n=document.getElementById('name').value;const r=document.getElementById('room').value;const ri=document.getElementById('roomId').value;const c=document.getElementById('category').value;const d=document.getElementById('date').value;const p=parseFloat(document.getElementById('price').value)||0;const ds=document.getElementById('desc').value;if(!n)return alert('Enter item name');items.push({id:Date.now(),name:n,room:r,roomId:ri,category:c,date:d,price:p,desc:ds,photo:photo});update();document.getElementById('modal').classList.add('hidden');clearForm();};
+document.getElementById('search').oninput=filter;
+document.getElementById('filterRoom').onchange=filter;
+document.getElementById('exportBtn').onclick=()=>{if(items.length===0)return alert('No items to export');let csv='Name,Room,Room ID,Category,Date,Price,Description\n';items.forEach(i=>csv+=`"${i.name}","${i.room}","${i.roomId||''}","${i.category||''}","${i.date||''}","${i.price}","${i.desc||''}"\n`);const b=new Blob([csv],{type:'text/csv'});const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download='inventory-'+new Date().toISOString().split('T')[0]+'.csv';a.click();};
+document.getElementById('hideReminders').onclick=()=>{document.getElementById('reminderSection').classList.add('hidden');document.getElementById('showRemindersBtn').classList.remove('hidden');};
+document.getElementById('showReminders').onclick=()=>{document.getElementById('reminderSection').classList.remove('hidden');document.getElementById('showRemindersBtn').classList.add('hidden');};
+document.getElementById('setupReminders').onclick=()=>document.getElementById('reminderModal').classList.remove('hidden');
+document.getElementById('closeReminderModal').onclick=()=>document.getElementById('reminderModal').classList.add('hidden');
+document.getElementById('cancelReminder').onclick=()=>document.getElementById('reminderModal').classList.add('hidden');
+document.getElementById('enableReminders').onchange=e=>{document.getElementById('reminderFields').classList.toggle('hidden',!e.target.checked);};
+document.getElementById('saveReminder').onclick=()=>{const en=document.getElementById('enableReminders').checked;if(en&&!document.getElementById('reminderEmail').value)return alert('Enter email');alert('Reminder settings saved!');document.getElementById('reminderModal').classList.add('hidden');};
+function clearForm(){document.getElementById('name').value='';document.getElementById('roomId').value='';document.getElementById('category').value='';document.getElementById('date').value='';document.getElementById('price').value='';document.getElementById('desc').value='';document.getElementById('photo').value='';document.getElementById('preview').classList.add('hidden');photo=null;}
+function update(){document.getElementById('totalItems').textContent=items.length;document.getElementById('totalValue').textContent='$'+items.reduce((s,i)=>s+i.price,0).toFixed(2);document.getElementById('rooms').textContent=new Set(items.map(i=>i.room)).size;filter();}
+function filter(){const s=document.getElementById('search').value.toLowerCase();const r=document.getElementById('filterRoom').value;const f=items.filter(i=>{const ms=(i.name.toLowerCase().includes(s)||(i.category||'').toLowerCase().includes(s)||(i.roomId||'').toLowerCase().includes(s));const mr=r==='all'||i.room===r;return ms&&mr;});display(f);}
+function display(its){const g=document.getElementById('grid');g.innerHTML=its.map(i=>`<div class="bg-white rounded-lg shadow border overflow-hidden">${i.photo?`<img src="${i.photo}" class="w-full h-48 object-cover">`:'<div class="w-full h-48 bg-gray-100 flex items-center justify-center text-6xl">📷</div>'}<div class="p-4"><div class="flex justify-between mb-2"><h3 class="font-semibold">${i.name}</h3><button onclick="del(${i.id})" class="text-red-600">🗑️</button></div><p class="text-sm text-gray-600">🏠 ${i.room}${i.roomId?' - '+i.roomId:''}</p>${i.category?`<p class="text-sm text-gray-600">📦 ${i.category}</p>`:''}${i.date?`<p class="text-sm text-gray-600">📅 ${i.date}</p>`:''}${i.price>0?`<p class="text-sm text-green-700 font-semibold">💰 $${i.price.toFixed(2)}</p>`:''}${i.desc?`<p class="text-xs text-gray-600 mt-2">${i.desc}</p>`:''}</div></div>`).join('');if(its.length>0){document.getElementById('empty').classList.add('hidden');g.classList.remove('hidden');}else{document.getElementById('empty').classList.remove('hidden');g.classList.add('hidden');}}
+function del(id){if(confirm('Delete this item?')){items=items.filter(i=>i.id!==id);update();}}
 </script>
 </body>
 </html>
