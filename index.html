@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home Inventory Tracker</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-50 min-h-screen">
+
+<div class="bg-white shadow-sm border-b border-gray-200">
+<div class="max-w-7xl mx-auto px-4 py-6">
+<div class="flex items-center justify-between flex-wrap gap-4">
+<div>
+<h1 class="text-3xl font-bold text-gray-900">Home Inventory Tracker</h1>
+<p class="text-gray-600 mt-1">Document your belongings for insurance</p>
+</div>
+<button id="addBtn" class="bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 font-medium">➕ Add Item</button>
+</div>
+</div>
+</div>
+
+<div class="max-w-7xl mx-auto px-4 py-8">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="bg-white p-6 rounded-lg shadow-sm border">
+<p class="text-sm text-gray-600">Total Items</p>
+<p id="totalItems" class="text-3xl font-bold">0</p>
+</div>
+<div class="bg-white p-6 rounded-lg shadow-sm border">
+<p class="text-sm text-gray-600">Total Value</p>
+<p id="totalValue" class="text-3xl font-bold">$0</p>
+</div>
+<div class="bg-white p-6 rounded-lg shadow-sm border">
+<p class="text-sm text-gray-600">Rooms</p>
+<p id="rooms" class="text-3xl font-bold">0</p>
+</div>
+</div>
+</div>
+
+<div class="max-w-7xl mx-auto px-4 pb-8">
+<div id="grid" class="grid grid-cols-1 md:grid-cols-3 gap-6 hidden"></div>
+<div id="empty" class="bg-white rounded-lg shadow-sm border p-12 text-center">
+<div class="text-6xl mb-4">📦</div>
+<h3 class="text-2xl font-semibold mb-3">No items yet</h3>
+<p class="text-gray-600">Click Add Item to start</p>
+</div>
+</div>
+
+<div id="modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+<div class="bg-white rounded-lg max-w-2xl w-full">
+<div class="bg-indigo-600 text-white px-6 py-4 rounded-t-lg flex justify-between">
+<h2 class="text-xl font-bold">Add Item</h2>
+<button id="closeBtn" class="text-2xl">×</button>
+</div>
+<div class="p-6 space-y-4">
+<input type="text" id="name" placeholder="Item name" class="w-full px-4 py-2 border rounded-lg">
+<select id="room" class="w-full px-4 py-2 border rounded-lg">
+<option>Living Room</option>
+<option>Bedroom</option>
+<option>Kitchen</option>
+<option>Garage</option>
+</select>
+<input type="number" id="price" placeholder="Price" class="w-full px-4 py-2 border rounded-lg">
+<div class="flex gap-3">
+<button id="save" class="flex-1 bg-indigo-600 text-white py-3 rounded-lg">Add</button>
+<button id="cancel" class="px-6 py-3 border rounded-lg">Cancel</button>
+</div>
+</div>
+</div>
+</div>
+
+<script>
+let items=[];
+document.getElementById('addBtn').onclick=()=>document.getElementById('modal').classList.remove('hidden');
+document.getElementById('closeBtn').onclick=()=>document.getElementById('modal').classList.add('hidden');
+document.getElementById('cancel').onclick=()=>document.getElementById('modal').classList.add('hidden');
+document.getElementById('save').onclick=()=>{
+let n=document.getElementById('name').value;
+let r=document.getElementById('room').value;
+let p=parseFloat(document.getElementById('price').value)||0;
+if(!n)return alert('Enter name');
+items.push({id:Date.now(),name:n,room:r,price:p});
+update();
+document.getElementById('modal').classList.add('hidden');
+document.getElementById('name').value='';
+document.getElementById('price').value='';
+};
+function update(){
+document.getElementById('totalItems').textContent=items.length;
+document.getElementById('totalValue').textContent='$'+items.reduce((s,i)=>s+i.price,0).toFixed(2);
+document.getElementById('rooms').textContent=new Set(items.map(i=>i.room)).size;
+let g=document.getElementById('grid');
+g.innerHTML=items.map(i=>`<div class="bg-white rounded-lg shadow border p-4"><div class="flex justify-between mb-2"><h3 class="font-semibold">${i.name}</h3><button onclick="del(${i.id})">🗑️</button></div><p class="text-sm">🏠 ${i.room}</p><p class="text-sm text-green-700">💰 $${i.price.toFixed(2)}</p></div>`).join('');
+if(items.length>0){
+document.getElementById('empty').classList.add('hidden');
+g.classList.remove('hidden');
+}else{
+document.getElementById('empty').classList.remove('hidden');
+g.classList.add('hidden');
+}
+}
+function del(id){
+if(confirm('Delete?')){
+items=items.filter(i=>i.id!==id);
+update();
+}
+}
+</script>
+</body>
+</html>
